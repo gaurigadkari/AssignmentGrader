@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Grader</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="device_offline">Make sure your device is connected to the internet</string>
+    <string name="no_results">No results to display</string>
+    <string name="error_429">Too many requests</string>
+    <string name="assignment_title">Assignment Title</string>
+    <string name="assignment_details">Assignment Details</string>
+    <string name="due_at">Due At</string>
+    <string name="lock_after_due_date">Lock after due date</string>
+    <string name="students_profile_image">Students profile image</string>
+</resources>

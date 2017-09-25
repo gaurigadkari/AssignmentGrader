@@ -1,0 +1,37 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.grader.fragments.CreateFragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etAssignmentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/assignment_title" />
+
+        <EditText
+            android:id="@+id/etAssignmentDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etAssignmentTitle"
+            android:hint="@string/assignment_details"
+            android:minLines="2" />
+
+        <EditText
+            android:id="@+id/etDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etAssignmentDetails"
+            android:hint="@string/due_at" />
+
+        <CheckBox
+            android:id="@+id/checkboxLockPastDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etDueDate"
+            android:text="@string/lock_after_due_date" />
+    </RelativeLayout>
+</layout>
