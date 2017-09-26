@@ -10,7 +10,7 @@ import com.example.android.grader.databinding.AssignmentItemBinding;
  */
 
 public class AssignmentViewHolder extends RecyclerView.ViewHolder {
-    public AssignmentItemBinding binding;
+    private AssignmentItemBinding binding;
     public TextView assignmentTitle;
     public TextView dueDate;
 

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.grader.activities.MainActivity;
+import com.example.android.grader.R;
 import com.example.android.grader.adapter.viewholder.AssignmentViewHolder;
 import com.example.android.grader.databinding.AssignmentItemBinding;
 import com.example.android.grader.models.Assignment;
@@ -22,9 +22,11 @@ import java.util.List;
 public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder> {
     private List<Assignment> assignments;
     private Context context;
+    private AssignmentClickHandler listener;
 
     public AssignmentAdapter(Context context, ArrayList<Assignment> assignments) {
         this.context = context;
+        this.listener = (AssignmentClickHandler) context;
         this.assignments = assignments;
     }
 
@@ -39,11 +41,11 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder
     public void onBindViewHolder(AssignmentViewHolder holder, int position) {
         final Assignment assignment = assignments.get(position);
         holder.assignmentTitle.setText(assignment.getTitle());
-        holder.dueDate.setText("due " + Utilities.changeDateFormat(assignment.getDueAt(), "MMM d, yyyy"));
+        holder.dueDate.setText(context.getString(R.string.due) + Utilities.changeDateFormat(assignment.getDueAt(), "MMM d, yyyy"));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) context).onAssignmentClick(assignment);
+                listener.onAssignmentClick(assignment);
             }
         });
     }

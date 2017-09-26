@@ -1,28 +1,33 @@
 package com.example.android.grader.models;
 
+import com.example.android.grader.Database.GraderDatabase;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import org.parceler.Parcel;
 
 /**
  * Created by Gauri Gadkari on 9/23/17.
  */
+@Table(database = GraderDatabase.class)
 @Parcel
-public class Author {
+public class Author extends BaseModel {
 
     @SerializedName("url")
     @Expose
     public String url;
+    @Column
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     public int id;
     @SerializedName("type")
     @Expose
     public String type;
-    //    @SerializedName("user_title")
-//    @Expose
-//    public Object userTitle;
     @SerializedName("time_zone")
     @Expose
     public String timeZone;
@@ -32,9 +37,11 @@ public class Author {
     @SerializedName("locale")
     @Expose
     public String locale;
+    @Column
     @SerializedName("first_name")
     @Expose
     public String firstName;
+    @Column
     @SerializedName("last_name")
     @Expose
     public String lastName;
@@ -76,76 +83,16 @@ public class Author {
         this.type = type;
     }
 
-//    public Object getUserTitle() {
-//        return userTitle;
-//    }
-//
-//    public void setUserTitle(Object userTitle) {
-//        this.userTitle = userTitle;
-//    }
-
-    public String getTimeZone() {
-        return timeZone;
-    }
-
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
-    }
-
-    public int getUtcOffset() {
-        return utcOffset;
-    }
-
-    public void setUtcOffset(int utcOffset) {
-        this.utcOffset = utcOffset;
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
-    }
-
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getVanity() {
-        return vanity;
-    }
-
-    public void setVanity(String vanity) {
-        this.vanity = vanity;
-    }
-
     public Avatars getAvatars() {
         return avatars;
-    }
-
-    public void setAvatars(Avatars avatars) {
-        this.avatars = avatars;
     }
 
 }

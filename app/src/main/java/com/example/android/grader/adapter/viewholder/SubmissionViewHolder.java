@@ -11,7 +11,7 @@ import com.example.android.grader.databinding.SubmissionItemBinding;
  */
 
 public class SubmissionViewHolder extends RecyclerView.ViewHolder {
-    public SubmissionItemBinding binding;
+    private SubmissionItemBinding binding;
     public ImageView avatar;
     public TextView studentName;
     public TextView submissionDate;

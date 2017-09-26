@@ -1,4 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.grader.fragments.CreateFragment">
 
@@ -6,32 +7,66 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/etAssignmentTitle"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/assignment_title" />
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:title="@string/create_assignment"
+            app:titleTextColor="@android:color/white"></android.support.v7.widget.Toolbar>
 
-        <EditText
-            android:id="@+id/etAssignmentDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etAssignmentTitle"
-            android:hint="@string/assignment_details"
-            android:minLines="2" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:layout_margin="12dp">
 
-        <EditText
-            android:id="@+id/etDueDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etAssignmentDetails"
-            android:hint="@string/due_at" />
 
-        <CheckBox
-            android:id="@+id/checkboxLockPastDueDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/etDueDate"
-            android:text="@string/lock_after_due_date" />
+            <EditText
+                android:id="@+id/etAssignmentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/assignment_title"
+                android:maxLines="1"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/etAssignmentDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etAssignmentTitle"
+                android:hint="@string/assignment_details"
+                android:inputType="textMultiLine"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/etDueDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etAssignmentDetails"
+                android:hint="@string/due_at"
+                android:inputType="date"
+                android:paddingTop="16dp" />
+
+            <CheckBox
+                android:id="@+id/checkboxLockPastDueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etDueDate"
+                android:layout_marginTop="16dp"
+                android:text="@string/lock_after_due_date" />
+
+            <Button
+                android:id="@+id/btnCreate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkboxLockPastDueDate"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/create_assignment"
+                android:textColor="#fff" />
+
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

@@ -24,10 +24,12 @@ import java.util.List;
 public class SubmissionAdapter extends RecyclerView.Adapter<SubmissionViewHolder> {
     private List<Submission> submissions;
     private Context context;
+    private String assignmentTitle;
 
-    public SubmissionAdapter(Context context, ArrayList<Submission> submissions) {
+    public SubmissionAdapter(String assignmentTitle, Context context, ArrayList<Submission> submissions) {
         this.context = context;
         this.submissions = submissions;
+        this.assignmentTitle = assignmentTitle;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class SubmissionAdapter extends RecyclerView.Adapter<SubmissionViewHolder
     public void onBindViewHolder(SubmissionViewHolder holder, int position) {
         final Submission submission = submissions.get(position);
         holder.studentName.setText(submission.getAuthor().getFirstName() + " " + submission.getAuthor().getLastName());
-        holder.submissionDate.setText("turned in " + Utilities.changeDateFormat(submission.getSubmittedAt(), "MMM d, yyyy"));
+        holder.submissionDate.setText(context.getString(R.string.turned_in) + Utilities.changeDateFormat(submission.getSubmittedAt(), "MMM d, yyyy"));
         Glide.clear(holder.avatar);
         holder.avatar.setImageResource(0);
         String imageUrl = submission.getAuthor().getAvatars().getSmall();
@@ -50,13 +52,13 @@ public class SubmissionAdapter extends RecyclerView.Adapter<SubmissionViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) context).onSubmissionClick(submission);
+                ((MainActivity) context).onSubmissionClick(submission, assignmentTitle);
             }
         });
     }
 
     public interface SubmissionClickHandler {
-        void onSubmissionClick(Submission submission);
+        void onSubmissionClick(Submission submission, String assignmentTitle);
     }
 
     @Override

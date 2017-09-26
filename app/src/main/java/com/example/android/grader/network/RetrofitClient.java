@@ -10,13 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     private static RetrofitClient instance = null;
     public static final String BASE_URL = "https://api.edmodo.com/";
-    public static final String ACCESS_TOKEN = "access_token";
     public static final String ACCESS_TOKEN_VALUE = "12e7eaf1625004b7341b6d681fa3a7c1c551b5300cf7f7f3a02010e99c84695d";
-    public static final String TITLE = "title";
-    public static final String DESCRIPTION = "description";
-    public static final String DUE_DATE = "due_at";
-    public static final String PAGINATION_PARAMETER = "page";
-    public static final String OK_STATUS = "OK";
     public static final int ERROR_CODE_TOO_MANY_REQUESTS = 429;
 
     // Keep your services here, build them in buildRetrofit method later

@@ -1,11 +1,12 @@
 package com.example.android.grader.fragments;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +24,23 @@ import org.parceler.Parcels;
 
 public class SubmissionDetailFragment extends Fragment {
     private static final String SUBMISSION = "submission";
+    private static final String ASSIGNMENT_TITLE = "assignment_title";
     private Submission submission;
-    FragmentSubmissionDetailBinding binding;
-    TextView studentName, submittedOn, content;
-    ImageView avatar;
+    private FragmentSubmissionDetailBinding binding;
+    private TextView studentName, submittedOn, content;
+    private ImageView avatar;
+    private Toolbar toolbar;
+    private String assignmentTitle;
 
     public SubmissionDetailFragment() {
         // Required empty public constructor
     }
 
-    public static SubmissionDetailFragment newInstance(Submission submission) {
+    public static SubmissionDetailFragment newInstance(Submission submission, String assignmentTitle) {
         Bundle args = new Bundle();
         SubmissionDetailFragment submissionDetailFragment = new SubmissionDetailFragment();
         args.putParcelable(SUBMISSION, Parcels.wrap(submission));
+        args.putString(ASSIGNMENT_TITLE, assignmentTitle);
         submissionDetailFragment.setArguments(args);
         return submissionDetailFragment;
     }
@@ -43,7 +48,8 @@ public class SubmissionDetailFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        submission = (Submission) Parcels.unwrap(getArguments().getParcelable(SUBMISSION));
+        submission = Parcels.unwrap(getArguments().getParcelable(SUBMISSION));
+        assignmentTitle = getArguments().getString(ASSIGNMENT_TITLE);
     }
 
     @Override
@@ -61,22 +67,14 @@ public class SubmissionDetailFragment extends Fragment {
         submittedOn = binding.submittedOn;
         content = binding.content;
         avatar = binding.avatar;
+        toolbar = binding.toolbar;
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(assignmentTitle);
         studentName.setText(submission.getAuthor().getFirstName() + " " + submission.getAuthor().getLastName());
         submittedOn.setText("turned in " + Utilities.changeDateFormat(submission.getSubmittedAt(), "MMM d, yyyy"));
         content.setText(submission.getContent());
-        Glide.with(getActivity()).load(submission.getAuthor().getAvatars().getLarge()).into(avatar);
+        Glide.with(getActivity()).load(submission.getAuthor().getAvatars().getLarge()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(avatar);
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);

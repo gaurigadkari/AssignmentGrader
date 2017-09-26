@@ -25,15 +25,9 @@ public class Submission {
     @SerializedName("content")
     @Expose
     public String content;
-    //    @SerializedName("num_replies")
-//    @Expose
-//    public Object numReplies;
     @SerializedName("status")
     @Expose
     public String status;
-    //    @SerializedName("attachments")
-//    @Expose
-//    public Attachments attachments;
     @SerializedName("creator")
     @Expose
     public Author author;
@@ -62,18 +56,6 @@ public class Submission {
         return submittedAt;
     }
 
-    public void setSubmittedAt(String submittedAt) {
-        this.submittedAt = submittedAt;
-    }
-
-    public int getAssignmentId() {
-        return assignmentId;
-    }
-
-    public void setAssignmentId(int assignmentId) {
-        this.assignmentId = assignmentId;
-    }
-
     public String getContent() {
         return content;
     }
@@ -82,30 +64,6 @@ public class Submission {
         this.content = content;
     }
 
-//    public Object getNumReplies() {
-//        return numReplies;
-//    }
-//
-//    public void setNumReplies(Object numReplies) {
-//        this.numReplies = numReplies;
-//    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    //    public Attachments getAttachments() {
-//        return attachments;
-//    }
-//
-//    public void setAttachments(Attachments attachments) {
-//        this.attachments = attachments;
-//    }
-//
     public Author getAuthor() {
         return author;
     }
