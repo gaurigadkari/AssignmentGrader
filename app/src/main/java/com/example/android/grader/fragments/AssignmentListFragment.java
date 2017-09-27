@@ -1,5 +1,6 @@
 package com.example.android.grader.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +23,6 @@ import com.example.android.grader.adapter.AssignmentAdapter;
 import com.example.android.grader.databinding.FragmentAssignmentListBinding;
 import com.example.android.grader.models.Assignment;
 import com.example.android.grader.network.RetrofitClient;
-import com.example.android.grader.utils.EndlessRecyclerViewScrollListener;
 import com.example.android.grader.utils.Utilities;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -48,6 +48,7 @@ public class AssignmentListFragment extends Fragment {
     private FloatingActionButton fab;
     private HandleNewAssignmentClick listener;
     private static final String ASSIGNMENT = "assignment";
+    private Context context;
 
     public static AssignmentListFragment newInstance() {
         return new AssignmentListFragment();
@@ -87,12 +88,12 @@ public class AssignmentListFragment extends Fragment {
             assignmentsRecyclerView = binding.rvAssignmentList;
             progressBar = binding.progressBar;
             toolbar = binding.toolbar;
-            linearLayoutManager = new LinearLayoutManager(getActivity());
+            linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             assignmentsRecyclerView.setLayoutManager(linearLayoutManager);
             assignments = new ArrayList<>();
             fab = binding.fab;
-            adapter = new AssignmentAdapter(getActivity(), assignments);
+            adapter = new AssignmentAdapter(context, assignments);
             assignmentsRecyclerView.setAdapter(adapter);
             swipeContainer = binding.swipeContainer;
             // Setup refresh listener which triggers new data loading
@@ -108,24 +109,24 @@ public class AssignmentListFragment extends Fragment {
             });
 
             //Verifying if the phone has connectivity before making a network call
-            if (Utilities.isNetworkAvailable(getActivity()) && Utilities.isOnline()) {
+            if (Utilities.isNetworkAvailable(context) && Utilities.isOnline()) {
                 retroNetworkCall(0);
             } else {
                 Snackbar.make(assignmentsRecyclerView, R.string.device_offline, Snackbar.LENGTH_LONG).show();
             }
 
         } else {
-            adapter = new AssignmentAdapter(getActivity(), assignments);
+            adapter = new AssignmentAdapter(context, assignments);
             assignmentsRecyclerView.setAdapter(adapter);
         }
-        listener = (HandleNewAssignmentClick) getActivity();
+        listener = (HandleNewAssignmentClick) context;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onNewAssignmentClick();
             }
         });
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) context).setSupportActionBar(toolbar);
         toolbar.setTitle("Assignments");
     }
 
@@ -168,6 +169,18 @@ public class AssignmentListFragment extends Fragment {
 
     private void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.context = null;
     }
 
     public interface HandleNewAssignmentClick {

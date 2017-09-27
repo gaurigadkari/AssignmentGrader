@@ -1,5 +1,6 @@
 package com.example.android.grader.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class SubmissionDetailFragment extends Fragment {
     private ImageView avatar;
     private Toolbar toolbar;
     private String assignmentTitle;
+    private Context context;
 
     public SubmissionDetailFragment() {
         // Required empty public constructor
@@ -68,15 +70,27 @@ public class SubmissionDetailFragment extends Fragment {
         content = binding.content;
         avatar = binding.avatar;
         toolbar = binding.toolbar;
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) context).setSupportActionBar(toolbar);
         toolbar.setTitle(assignmentTitle);
         studentName.setText(submission.getAuthor().getFirstName() + " " + submission.getAuthor().getLastName());
-        submittedOn.setText("turned in " + Utilities.changeDateFormat(submission.getSubmittedAt(), "MMM d, yyyy"));
+        submittedOn.setText(context.getResources().getString(R.string.turned_in) + " " + Utilities.changeDateFormat(submission.getSubmittedAt(), "MMM d, yyyy"));
         content.setText(submission.getContent());
-        Glide.with(getActivity()).load(submission.getAuthor().getAvatars().getLarge()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(avatar);
+        Glide.with(context).load(submission.getAuthor().getAvatars().getLarge()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(avatar);
     }
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.context = null;
     }
 }

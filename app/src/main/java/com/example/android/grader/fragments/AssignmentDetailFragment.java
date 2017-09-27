@@ -1,6 +1,7 @@
 package com.example.android.grader.fragments;
 
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -48,6 +49,7 @@ public class AssignmentDetailFragment extends Fragment {
     private Assignment assignment;
     private ProgressBar progressBar;
     private Toolbar toolbar;
+    private Context context;
 
     public AssignmentDetailFragment() {
         // Required empty public constructor
@@ -89,12 +91,12 @@ public class AssignmentDetailFragment extends Fragment {
             submissions = new ArrayList<>();
 
             progressBar = binding.progressBar;
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity) context).setSupportActionBar(toolbar);
             toolbar.setTitle(assignment.getTitle());
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             submissionsRecyclerView.setLayoutManager(linearLayoutManager);
-            adapter = new SubmissionAdapter(assignment.getTitle(), getActivity(), submissions);
+            adapter = new SubmissionAdapter(assignment.getTitle(), context, submissions);
             submissionsRecyclerView.setAdapter(adapter);
 
             swipeContainer = binding.swipeContainer;
@@ -111,14 +113,14 @@ public class AssignmentDetailFragment extends Fragment {
             });
 
             //Verifying if the phone has connectivity before making a network call
-            if (Utilities.isNetworkAvailable(getActivity()) && Utilities.isOnline()) {
+            if (Utilities.isNetworkAvailable(context) && Utilities.isOnline()) {
                 retroNetworkCall(0);
             } else {
                 Snackbar.make(submissionsRecyclerView, R.string.device_offline, Snackbar.LENGTH_LONG).show();
             }
 
         } else {
-            adapter = new SubmissionAdapter(assignment.getTitle(), getActivity(), submissions);
+            adapter = new SubmissionAdapter(assignment.getTitle(), context, submissions);
             submissionsRecyclerView.setAdapter(adapter);
         }
         assignmentDetails.setText(assignment.getDescription());
@@ -151,6 +153,18 @@ public class AssignmentDetailFragment extends Fragment {
                 hideProgressBar();
             }
         });
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.context = null;
     }
 
     private void showProgressBar() {

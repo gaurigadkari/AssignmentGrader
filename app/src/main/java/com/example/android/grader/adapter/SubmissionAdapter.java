@@ -43,7 +43,7 @@ public class SubmissionAdapter extends RecyclerView.Adapter<SubmissionViewHolder
     public void onBindViewHolder(SubmissionViewHolder holder, int position) {
         final Submission submission = submissions.get(position);
         holder.studentName.setText(submission.getAuthor().getFirstName() + " " + submission.getAuthor().getLastName());
-        holder.submissionDate.setText(context.getString(R.string.turned_in) + Utilities.changeDateFormat(submission.getSubmittedAt(), "MMM d, yyyy"));
+        holder.submissionDate.setText(context.getString(R.string.turned_in) + " " + Utilities.changeDateFormat(submission.getSubmittedAt(), "MMM d, yyyy"));
         Glide.clear(holder.avatar);
         holder.avatar.setImageResource(0);
         String imageUrl = submission.getAuthor().getAvatars().getSmall();

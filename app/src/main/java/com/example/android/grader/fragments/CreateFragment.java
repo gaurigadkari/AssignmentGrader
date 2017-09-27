@@ -1,6 +1,7 @@
 package com.example.android.grader.fragments;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ public class CreateFragment extends Fragment {
     private Button btnCreateAssignment;
     private DatePickerDialog.OnDateSetListener date;
     private HandleSaveAssignment listener;
+    private Context context;
 
     public CreateFragment() {
         // Required empty public constructor
@@ -57,7 +59,7 @@ public class CreateFragment extends Fragment {
         chkLockPastDueDate = binding.checkboxLockPastDueDate;
         btnCreateAssignment = binding.btnCreate;
 
-        listener = (HandleSaveAssignment) getActivity();
+        listener = (HandleSaveAssignment) context;
 
         //tweets.clear();
 
@@ -70,7 +72,7 @@ public class CreateFragment extends Fragment {
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, year, month, day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context, date, year, month, day);
                 //datePickerDialog.getDatePicker().setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 datePickerDialog.show();
             }
@@ -102,5 +104,17 @@ public class CreateFragment extends Fragment {
 
     public interface HandleSaveAssignment {
         void onSaveAssignment(Assignment assignment);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.context = null;
     }
 }
