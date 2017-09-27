@@ -15,10 +15,10 @@ import com.squareup.leakcanary.RefWatcher;
 public class GraderApplication extends Application {
     private RefWatcher refWatcher;
 
-    public static RefWatcher getRefWatcher(Context context) {
-        GraderApplication application = (GraderApplication) context.getApplicationContext();
-        return application.refWatcher;
-    }
+//    public static RefWatcher getRefWatcher(Context context) {
+//        GraderApplication application = (GraderApplication) context.getApplicationContext();
+//        return application.refWatcher;
+//    }
 
 
     @Override
@@ -28,9 +28,9 @@ public class GraderApplication extends Application {
         FlowManager.init(new FlowConfig.Builder(this).build());
         // add for verbose logging
         // FlowLog.setMinimumLoggingLevel(FlowLog.Level.V);
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        refWatcher = LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//        refWatcher = LeakCanary.install(this);
     }
 }

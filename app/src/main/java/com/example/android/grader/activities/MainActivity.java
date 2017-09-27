@@ -19,6 +19,9 @@ import com.example.android.grader.models.Submission;
 public class MainActivity extends AppCompatActivity implements AssignmentAdapter.AssignmentClickHandler, SubmissionAdapter.SubmissionClickHandler, AssignmentListFragment.HandleNewAssignmentClick, CreateFragment.HandleSaveAssignment {
     private static final String CREATE_FRAGMENT = "create_fragment";
     private AssignmentListFragment assignmentListFragment;
+    private CreateFragment createFragment;
+    private SubmissionDetailFragment submissionDetailFragment;
+    private AssignmentDetailFragment assignmentDetailFragment;
     private static final String ASSIGNMENT_LIST_FRAGMENT = "assignment_list_fragment";
     private static final String ASSIGNMENT_DETAIL_FRAGMENT = "assignment_detail_fragment";
     private static final String SUBMISSION_DETAIL_FRAGMENT = "submission_detail_fragment";
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements AssignmentAdapter
             assignmentListFragment = AssignmentListFragment.newInstance();
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.fragmentContainer, assignmentListFragment, ASSIGNMENT_LIST_FRAGMENT)
+                    .replace(R.id.fragmentContainer, assignmentListFragment, ASSIGNMENT_LIST_FRAGMENT)
                     .addToBackStack(null)
                     .commit();
         }
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements AssignmentAdapter
 
     @Override
     public void onAssignmentClick(Assignment assignment) {
-        AssignmentDetailFragment assignmentDetailFragment = AssignmentDetailFragment.newInstance(assignment);
+        assignmentDetailFragment = AssignmentDetailFragment.newInstance(assignment);
         fragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, assignmentDetailFragment, ASSIGNMENT_DETAIL_FRAGMENT)
                 .addToBackStack(null)
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements AssignmentAdapter
 
     @Override
     public void onSubmissionClick(Submission submission, String assignmentTitle) {
-        SubmissionDetailFragment submissionDetailFragment = SubmissionDetailFragment.newInstance(submission, assignmentTitle);
+        submissionDetailFragment = SubmissionDetailFragment.newInstance(submission, assignmentTitle);
         fragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, submissionDetailFragment, SUBMISSION_DETAIL_FRAGMENT)
                 .addToBackStack(null)
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements AssignmentAdapter
 
     @Override
     public void onNewAssignmentClick() {
-        CreateFragment createFragment = CreateFragment.newInstance();
+        createFragment = CreateFragment.newInstance();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, createFragment, CREATE_FRAGMENT)
                 .addToBackStack(null)
@@ -72,7 +75,16 @@ public class MainActivity extends AppCompatActivity implements AssignmentAdapter
 
     @Override
     public void onSaveAssignment(Assignment assignment) {
-        AssignmentListFragment assignmentListFragment = AssignmentListFragment.newInstance(assignment);
+        assignmentListFragment = AssignmentListFragment.newInstance(assignment);
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, assignmentListFragment, ASSIGNMENT_LIST_FRAGMENT)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onCancelAssignment() {
+        assignmentListFragment = AssignmentListFragment.newInstance();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, assignmentListFragment, ASSIGNMENT_LIST_FRAGMENT)
                 .addToBackStack(null)

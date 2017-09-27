@@ -12,4 +12,7 @@
     <string name="create_assignment">Create Assignment</string>
     <string name="due">due </string>
     <string name="turned_in">turned in </string>
+    <string name="add_title">Add Title</string>
+    <string name="add_description">Add Description</string>
+    <string name="add_due_date">Add Due Date</string>
 </resources>
