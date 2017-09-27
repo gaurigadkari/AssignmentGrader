@@ -153,6 +153,7 @@ public class AssignmentDetailFragment extends Fragment {
                 hideProgressBar();
             }
         });
+        swipeContainer.setRefreshing(false);
     }
 
     @Override

@@ -161,6 +161,7 @@ public class AssignmentListFragment extends Fragment {
                 hideProgressBar();
             }
         });
+        swipeContainer.setRefreshing(false);
     }
 
     private void showProgressBar() {
