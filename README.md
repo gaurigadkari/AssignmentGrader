@@ -29,3 +29,9 @@ The following **Optional** functionality is completed:
  * [x] Used third party libraries like Glide, DBFlow, Retrofit
  * [x] Managed all stories in a Trello Board: https://trello.com/b/oiSCSB6T
  * [ ] Confirm dialog when user hits back on Create screen
+ 
+ ## Video Walkthrough 
+
+Here's a walkthrough of implemented user stories:
+
+![Video Walkthrough](Edmodo.gif)
