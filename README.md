@@ -34,4 +34,4 @@ The following **Optional** functionality is completed:
 
 Here's a walkthrough of implemented user stories:
 
-![Video Walkthrough](Edmodo.gif)
+![Video Walkthrough]()
